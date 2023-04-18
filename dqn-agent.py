@@ -38,10 +38,6 @@ def parse_args():
 
 
 def runner():
-
-    #========================================================================
-    #                           BASIC PARAMETER & LOGGING SETUP
-    #========================================================================
     
     args = parse_args()
     exp_name = args.exp_name
@@ -59,16 +55,12 @@ def runner():
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}" for key, value in vars(args).items()])))
     
-    #Seeding to reproduce the results 
+    #Seeding
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     torch.backends.cudnn.deterministic = args.torch_deterministic
-    
-    
-    #========================================================================
-    #                           INITIALIZING THE NETWORK
-    #========================================================================
+
 
     checkpoint_load = args.load_checkpoint
     n_actions = 7  # Car can only make 7 actions
@@ -90,11 +82,6 @@ def runner():
                 cumulative_score = data['cumulative_score']
                 agent.epsilon = data['epsilon']
 
-
-    #========================================================================
-    #                           CREATING THE SIMULATION
-    #========================================================================
-
     try:
         client, world = ClientConnection(town).setup()
 
@@ -110,9 +97,7 @@ def runner():
 
     try:
         time.sleep(1)
-        #========================================================================
-        #                           INITIALIZING THE MEMORY
-        #========================================================================
+    
     
         if exp_name == 'ddqn' and checkpoint_load:
             while agent.replay_buffer.counter < agent.replay_buffer.buffer_size:
@@ -128,10 +113,7 @@ def runner():
 
 
         if args.train:
-            #========================================================================
-            #                           ALGORITHM
-            #========================================================================
-
+        
             for step in range(epoch+1, EPISODES+1):
                 if exp_name == 'ddqn':
                     print('Starting Episode: ', step, ', Epsilon Now:  {:.3f}'.format(agent.epsilon), ', ', end="")

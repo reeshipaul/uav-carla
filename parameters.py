@@ -7,10 +7,9 @@ GAMMA = 0.99
 MEMORY_SIZE = 5000
 EPISODES = 1000
 
-#VAE Bottleneck
 LATENT_DIM = 95
 
-#Dueling DQN (hyper)parameters
+#Dueling DQN parameters
 DQN_LEARNING_RATE = 0.0001
 EPSILON = 1.00
 EPSILON_END = 0.05

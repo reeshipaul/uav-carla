@@ -5,11 +5,6 @@ import pygame
 from simulation.connection import carla
 from simulation.settings import RGB_CAMERA, SSC_CAMERA
 
-
-# ---------------------------------------------------------------------|
-# ------------------------------- CAMERA |
-# ---------------------------------------------------------------------|
-
 class CameraSensor():
 
     def __init__(self, vehicle):
@@ -43,11 +38,6 @@ class CameraSensor():
         target = placeholder1[:, :, :3]
         self.front_camera.append(target)#/255.0)
 
-
-# ---------------------------------------------------------------------|
-# ------------------------------- ENV CAMERA |
-# ---------------------------------------------------------------------|
-
 class CameraSensorEnv:
 
     def __init__(self, vehicle):
@@ -62,7 +52,6 @@ class CameraSensorEnv:
         weak_self = weakref.ref(self)
         self.sensor.listen(lambda image: CameraSensorEnv._get_third_person_camera(weak_self, image))
 
-    # Third camera is setup and provide the visual observations for our environment.
 
     def _set_camera_sensor(self, world):
 
@@ -86,14 +75,6 @@ class CameraSensorEnv:
         self.display.blit(self.surface, (0, 0))
         pygame.display.flip()
 
-
-
-# ---------------------------------------------------------------------|
-# ------------------------------- COLLISION SENSOR|
-# ---------------------------------------------------------------------|
-
-# It's an important as it helps us to tract collisions
-# It also helps with resetting the vehicle after detecting any collisions
 class CollisionSensor:
 
     def __init__(self, vehicle) -> None:

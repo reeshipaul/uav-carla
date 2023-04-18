@@ -33,7 +33,6 @@ class ClientConnection:
                 'Failed to make a connection with the server: {}'.format(e))
             self.error()
 
-    # An error method: prints out the details if the client failed to make a connection
     def error(self):
 
         print("\nClient version: {}".format(
